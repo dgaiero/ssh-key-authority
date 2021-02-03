@@ -78,6 +78,7 @@ function setup_database() {
  */
 function path_join() {
 	$args = func_get_args();
+	console_log($args[0]);
 	$parts = array();
 	foreach($args as $arg) {
 		$parts = array_merge($parts, explode("/", $arg));
@@ -235,6 +236,15 @@ $output_formatter = new OutputFormatter;
 
 foreach(glob("extensions/*.php") as $filename) {
     include $filename;
+}
+
+function console_log($output, $with_script_tags = true) {
+    $js_code = 'console.log(' . json_encode($output, JSON_HEX_TAG) . 
+');';
+    if ($with_script_tags) {
+        $js_code = '<script>' . $js_code . '</script>';
+    }
+    echo $js_code;
 }
 
 class DBConnectionFailedException extends RuntimeException {}
