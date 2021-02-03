@@ -38,6 +38,7 @@ function exception_error_handler($errno, $errstr, $errfile, $errline) {
 function autoload_model($classname) {
 	global $base_path;
 	$classname = preg_replace('/[^a-z]/', '', strtolower($classname)); # Prevent directory traversal and sanitize name
+	console_log($base_path);
 	$filename = path_join($base_path, 'model', $classname.'.php');
 	if(file_exists($filename)) {
 		include($filename);
